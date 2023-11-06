@@ -17,6 +17,9 @@ def luckyNumbers (matrix):
     luckies = list(minimums.intersection(maximums))
     return luckies
     
+    # Solution found 
+    # Have to learn how to use zip()
+    #  return list({min(row) for row in matrix} & {max(col) for col in zip(*matrix)})
     # Original solution
     # 86 ms Beat 86.32%
     # 13.65MB Betas 16.84%
@@ -42,4 +45,5 @@ if __name__ == "__main__":
     # mat = [[1,10,4,2],[9,3,8,7],[15,16,17,12]]
     # mat = [[7,8],[1,2]]
     print(luckyNumbers(mat))
+    print(list(zip(*mat)))
     
