@@ -2,31 +2,45 @@ def longestPalindrome(s: str) -> str:
     n = len(s)
     if n == 1:
         return 1 
-    return recSearch(s, 0, n, 1)
-def recSearch(s, low, high, currLength):
-    if low >= high:
-        return s[low if low >= 0 else high]
-    half = (high + low) // 2
-    if currLength >= (half - low) * 2 or currLength >= (high - half) * 2:
-        return s[half]
+    return recSearch(s, 0, n)
+def recSearch(s: str, low: int, high: int) -> str:
+    if low == high:
+        return ""
+    half = (low + high) // 2
     left = half - 1
-    right = half + (0 if (high - low) % 2 == 0 else 1)
-    result = s[half]
-    while(left >= 0 and right <= len(s) and s[left] == s[right]):
+    right = half + 1
+    result = result2 = s[half]
+    while left >= 0 and right < len(s) and s[left] == s[right]:
         right += 1
         result = s[left:right]
         left -= 1
-    currLength = len(result)
-    L = recSearch(s, low, half, currLength)
-    R = recSearch(s, half+1, high, currLength)
-    if len(L) > len(R):
-        return result if currLength > len(L) else L
-    else:
-        return result if currLength > len(R) else R
+    left = half - 1
+    right = half 
+    while left >= 0 and right < len(s) and s[left] == s[right]:
+        right += 1
+        result2 = s[left:right]
+        left -= 1
+    result = result if len(result) > len(result2) else result2
+    if len(result) > len(s) // 2:
+        return result
+    if (half + low) >= len(result):
+        L = recSearch(s, low, half)
+        result = result if len(result) > len(L) else L
+    if (high - ((half + high) // 2)) * 2 >= len(result):
+        R = recSearch(s, half + 1, high)
+        result = result if len(result) > len(R) else R
+    return result
+            
     
 
 if __name__ == "__main__":
-    # s = "babad"
-    # s = "bcdefghhgfexyz"
-    s = "efghhgfexyz"
-    print(longestPalindrome(s))
+    s1 = "babad"
+    s2 = "bcdefghhgfexyz"
+    s3 = "efghhgfexyz"
+    s4 = "abcdefghijkyyz"
+    s5 = "ahsy"
+    print(longestPalindrome(s1))
+    print(longestPalindrome(s2))
+    print(longestPalindrome(s3))
+    print(longestPalindrome(s4))
+    print(longestPalindrome(s5))
